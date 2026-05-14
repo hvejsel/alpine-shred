@@ -15,9 +15,9 @@ The frequency is increasing because the payoff is massive: one compromised packa
 
 ### Pinned npm versions (`save-exact=true` in `.npmrc`)
 
-All dependencies are installed with exact versions — no `^` or `~` ranges. This means `npm install` installs exactly what is in the lockfile, not a newer compatible version that could be malicious.
+> **Note:** This repo currently has no npm dependencies. The `.npmrc` config is in place as a hardened baseline for if/when npm packages are introduced.
 
-**Lockfile (`pnpm-lock.yaml`) is committed to git.** This freezes the entire resolved dependency tree. Any change to the lockfile is visible in code review.
+If npm dependencies are added, `save-exact=true` ensures they are written to `package.json` with exact versions — no `^` or `~` ranges. The lockfile must also be committed to git to freeze the full resolved dependency tree. Any change to the lockfile is visible in code review.
 
 ### Pinned GitHub Actions (SHA in `.github/workflows/`)
 
@@ -38,8 +38,10 @@ GitHub Dependabot monitors all dependencies for known vulnerabilities and create
 
 ## What to Do When Updating a Dependency
 
+> **Note:** This repo has no npm dependencies. If they are added in the future, follow these steps.
+
 1. Update the version in `package.json`
-2. Run `pnpm install` to regenerate the lockfile
+2. Run `npm install` (or `pnpm install`) to regenerate the lockfile
 3. Review the lockfile diff before committing — check for unexpected new packages
 4. Search the lockfile for `postinstall`, `preinstall`, or `prepare` scripts in new packages
 
